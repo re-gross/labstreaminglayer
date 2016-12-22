@@ -9,10 +9,10 @@ import edu.ucsd.sccn.lsl.*;
 
 public class ReceiveStringMarkers extends Activity
 {
-    private static lslAndroid lsl;
-	
-	private static TextView tv;
-	 
+    lslAndroid lsl;
+
+	TextView tv;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -22,14 +22,14 @@ public class ReceiveStringMarkers extends Activity
 		tv = new TextView(this);
 		tv.setText( "Attempting to receive LSL markers: ");
 		setContentView(tv);
-		
 
-		AsyncTask.execute(new Runnable() {
+
+		new Thread(new Runnable() {
 			public void run() {
-			
+
 				vectorinfo results = lsl.resolve_stream("type", "Markers");
 				stream_inlet in = new stream_inlet(results.get(0));
-				
+
 				vectorstr sample = new vectorstr(1);
 				while(true) {
 					in.pull_sample(sample, 1.0);
@@ -41,11 +41,11 @@ public class ReceiveStringMarkers extends Activity
 						}
 					});
 				}
-				
+
 			}
-		});
-		
-       
+		}).start();
+
+
     }
 
     static {

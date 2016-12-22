@@ -9,12 +9,12 @@ import edu.ucsd.sccn.lsl.*;
 
 public class SendStringMarkers extends Activity
 {
-    private static lslAndroid lsl;
-	
-	private static TextView tv;
-	
-	private String markertypes[] = { "Test", "Blah", "Marker", "XXX", "Testtest", "Test-1-2-3" };
-    
+    lslAndroid lsl;
+
+	TextView tv;
+
+	String markertypes[] = { "Test", "Blah", "Marker", "XXX", "Testtest", "Test-1-2-3" };
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -24,15 +24,15 @@ public class SendStringMarkers extends Activity
 		tv = new TextView(this);
 		tv.setText( "Attempting to send LSL markers: ");
 		setContentView(tv);
-		
 
-		AsyncTask.execute(new Runnable() {
+
+		new Thread(new Runnable() {
 			public void run() {
 				java.util.Random rand = new java.util.Random();
 				vectorstr sample = new vectorstr(1);
 				stream_info info = new stream_info("MyEventStream", "Markers", 1, lsl.getIRREGULAR_RATE() , channel_format_t.cf_string , "myuniquesourceid23443");
 				stream_outlet outlet = new stream_outlet(info);
-				
+
 				// send random marker strings
 				while (true) {
 					// wait for a random period of time
@@ -47,7 +47,7 @@ public class SendStringMarkers extends Activity
 							tv.setText("Now sending: " + mrk);
 						}
 					});
-					
+
 					sample.set(0,mrk);
 					try{
 					Thread.sleep(100);
@@ -55,9 +55,9 @@ public class SendStringMarkers extends Activity
 					outlet.push_sample(sample);
 				}
 			}
-		});
-		
-       
+		}).start();
+
+
     }
 
     static {
