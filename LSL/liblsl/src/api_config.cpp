@@ -6,6 +6,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 
+#include <android/log.h>
 
 // === implementation of the api_config class ===
 
@@ -48,18 +49,23 @@ static std::vector<std::string> parse_set(const std::string &setstr) {
 */
 api_config::api_config() {
 	// for each config file location under consideration...
-	const char *filenames[] = {"lsl_api.cfg", "~/lsl_api/lsl_api.cfg", "/etc/lsl_api/lsl_api.cfg"};
+	const char *filenames[] = {"lsl_api.cfg", "~/lsl_api/lsl_api.cfg", "/etc/lsl_api/lsl_api.cfg", "/mnt/sdcard/lsl_api.cfg"};
 	for (unsigned k=0; k < sizeof(filenames)/sizeof(filenames[0]); k++) {
+		//__android_log_print(ANDROID_LOG_DEBUG, "LOG_TAG", "%s", filenames[k]);
 		try {
 			path p = expand_tilde(filenames[k]);
+			//__android_log_print(ANDROID_LOG_DEBUG, "LOG_TAG", "%s", filenames[k]);
 			if (exists(p)) {
 				// try to load it if the file exists
 				load_from_file(system_complete(p).string());
 				// successful: finished
+				__android_log_print(ANDROID_LOG_DEBUG, "LOG_TAG", "api_config::api_config(): %s loaded!", p.string().c_str());
 				return;
 			}
+			__android_log_print(ANDROID_LOG_DEBUG, "LOG_TAG", "api_config::api_config(): %s does not exist", p.string().c_str());
 		} catch(std::exception &e) {
-			std::cerr << "Error trying to load config file " << filenames[k] << ": " << e.what() << std::endl;
+			//std::cerr << "Error trying to load config file " << filenames[k] << ": " << e.what() << std::endl;
+			__android_log_print(ANDROID_LOG_DEBUG, "LOG_TAG", "Error trying to load config file %s", filenames[k]);
 		}
 	}
 	// unsuccessful: load default settings
