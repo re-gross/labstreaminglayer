@@ -17,23 +17,31 @@
 
     <application android:label="@string/app_name" >
         <activity
-            android:name=".MainActivity"
+            android:name="examples.MainActivity"
             android:label="@string/title_activity_my" >
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>           
-        </activity>
+        </activity>       
         <activity
-            android:name=".SendData"
+            android:name="examples.SendData"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".ReceiveData"
+            android:name="examples.ReceiveData"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".Dummy"
+            android:name="examples.SendStringMarkers"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="examples.ReceiveStringMarkers"
+            android:label="@string/app_name" >
+        </activity>        
+        <activity
+            android:name="examples.Dummy"
             android:label="@string/app_name" >
         </activity>                       
     </application>

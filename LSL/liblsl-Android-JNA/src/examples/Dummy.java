@@ -1,4 +1,4 @@
-package com.example.hellojni;
+package examples;
 
 import android.app.Activity;
 import android.os.Bundle;

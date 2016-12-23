@@ -1,7 +1,9 @@
-package com.example.hellojni;
+package examples;
 
 import edu.ucsd.sccn.LSL;
+import edu.ucsd.sccn.LSL.ChannelFormat;
 import edu.ucsd.sccn.LSL.StreamInfo;
+import edu.ucsd.sccn.LSL.StreamOutlet;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;

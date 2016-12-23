@@ -29,9 +29,9 @@ FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/system/src/*.cpp
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/thread/src/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/thread/src/pthread/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/liblsl_wrap_java.cxx)
+
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
-
-
+LOCAL_LDLIBS := -llog
 LOCAL_CPP_FEATURES := rtti exceptions
 LOCAL_CPP_EXTENSION := .cxx .cpp
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../liblsl/include $(LOCAL_PATH)/../../liblsl/external

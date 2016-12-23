@@ -1,9 +1,13 @@
-package com.example.hellojni;
+package examples;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import com.example.hellojni.R;
+import com.example.hellojni.R.id;
+import com.example.hellojni.R.layout;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,14 +34,16 @@ public class MainActivity extends Activity {
 		Button button1 = (Button) findViewById(R.id.button1);
 		button1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				startActivity(new Intent(MainActivity.this, SendData.class));
+				//startActivity(new Intent(MainActivity.this, SendData.class));
+				startActivity(new Intent(MainActivity.this, SendStringMarkers.class));
 			}
 		});
 		
 		Button button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				startActivity(new Intent(MainActivity.this, ReceiveData.class));
+				//startActivity(new Intent(MainActivity.this, ReceiveData.class));
+				startActivity(new Intent(MainActivity.this, ReceiveStringMarkers.class));
 			}
 		});
 	}
