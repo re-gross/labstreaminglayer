@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.hellojni"
+    package="nmm.examples"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -8,16 +8,18 @@
         android:minSdkVersion="10"
         android:targetSdkVersion="10" />
 
-    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application android:label="@string/app_name" >
         <activity
-            android:name="examples.MainActivity"
+            android:name="nmm.examples.MainActivity"
             android:label="@string/title_activity_my" >
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,23 +27,23 @@
             </intent-filter>           
         </activity>       
         <activity
-            android:name="examples.SendData"
+            android:name="nmm.examples.SendData"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="examples.ReceiveData"
+            android:name="nmm.examples.ReceiveData"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="examples.SendStringMarkers"
+            android:name="nmm.examples.SendStringMarkers"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="examples.ReceiveStringMarkers"
+            android:name="nmm.examples.ReceiveStringMarkers"
             android:label="@string/app_name" >
         </activity>        
         <activity
-            android:name="examples.Dummy"
+            android:name="nmm.examples.Dummy"
             android:label="@string/app_name" >
         </activity>                       
     </application>

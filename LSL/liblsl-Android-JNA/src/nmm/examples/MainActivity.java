@@ -1,13 +1,11 @@
-package examples;
+package nmm.examples;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.example.hellojni.R;
-import com.example.hellojni.R.id;
-import com.example.hellojni.R.layout;
+import nmm.examples.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,16 +17,23 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
-	
-	private static final String TAG = "LOG_TAG";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-		File f = new File(Environment.getExternalStorageDirectory().getPath() + "/" + "lsl_api.cfg");
-		if (!f.exists())
-			copyFile("lsl_api.cfg", f.toString(), this);
+
 		super.onCreate(savedInstanceState);
+		
+		Log.i(Helper.TAG, this.getClass().getSimpleName() + ".onCreate()");
+		
+		// Look for optional LSL config file on mobile device, e.g. /mnt/sdcard/lsl_api.cfg
+		// If it doesn't exist, look for one packaged in the app resources (res directory) and copy it
+		// to the above location, i.e. /mnt/sdcard/lsl_api.cfg
+		File f = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Helper.LSL_CONFIG_FILENAME);
+		if (!f.exists())
+			copyFile(Helper.LSL_CONFIG_FILENAME, f.toString(), this);
+		else
+			Log.i(Helper.TAG, f.toString() + " exists");
+		
 		setContentView(R.layout.activity_my);
 
 		Button button1 = (Button) findViewById(R.id.button1);
@@ -48,6 +53,18 @@ public class MainActivity extends Activity {
 		});
 	}
 
+	protected void onStop() {
+		
+		super.onStop();
+		Log.i(Helper.TAG, this.getClass().getSimpleName() + ".onStop()");
+	}
+
+	protected void onDestroy() {
+		
+		super.onDestroy();
+		Log.i(Helper.TAG, this.getClass().getSimpleName() + ".onDestroy()");
+	}
+	
 	private static void copyFile(String assetPath, String localPath,
 			Context context) {
 		try {
@@ -62,7 +79,7 @@ public class MainActivity extends Activity {
 			in.close();
 
 		} catch (IOException e) {
-			Log.i(TAG, "lsl_api.cfg does not exist");
+			Log.i(Helper.TAG, Helper.LSL_CONFIG_FILENAME + " does not exist");
 			throw new RuntimeException(e);
 		}
 	}

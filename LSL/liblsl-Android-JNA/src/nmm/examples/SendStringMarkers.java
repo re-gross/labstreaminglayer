@@ -1,13 +1,16 @@
-package examples;
+package nmm.examples;
 
 import android.app.Activity;
 import android.widget.TextView;
 import android.os.Bundle;
+import android.util.Log;
 import edu.ucsd.sccn.LSL;
 
 public class SendStringMarkers extends Activity
 {
-	TextView tv;
+	private TextView tv;
+	private LSL.StreamInfo sinfo;
+	private LSL.StreamOutlet soutlet;
 
 	String markertypes[] = { "Test", "Blah", "Marker", "XXX", "Testtest", "Test-1-2-3" };
 
@@ -25,8 +28,8 @@ public class SendStringMarkers extends Activity
 			public void run() {
 				java.util.Random rand = new java.util.Random();
 				String[] sample = new String[1];
-				LSL.StreamInfo info = new LSL.StreamInfo("MyEventStream", "Markers", 1, LSL.IRREGULAR_RATE, LSL.ChannelFormat.string , "myuniquesourceid23443");
-				LSL.StreamOutlet outlet = new LSL.StreamOutlet(info);
+				sinfo = new LSL.StreamInfo("MyEventStream", "Markers", 1, LSL.IRREGULAR_RATE, LSL.ChannelFormat.string, "myuniquesourceid23443");
+				soutlet = new LSL.StreamOutlet(sinfo);
 
 				// send random marker strings
 				while (true) {
@@ -47,10 +50,18 @@ public class SendStringMarkers extends Activity
 					try{
 					Thread.sleep(100);
 					} catch (Exception ex) {}
-					outlet.push_sample(sample);
+					soutlet.push_sample(sample);
 				}
 			}
 		}).start();
     }
+    
+	protected void onStop() {
+		
+		super.onStop();
+		Log.i(Helper.TAG, this.getClass().getSimpleName() + ".onStop()");
+		sinfo.destroy();
+		soutlet.close();
+	}
 }
 

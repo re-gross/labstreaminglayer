@@ -21,19 +21,20 @@ LOCAL_MODULE := liblsl
 
 FILE_LIST := $(wildcard $(LOCAL_PATH)/../../liblsl/src/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/src/pugixml/*.cpp)
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/atomic/src/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/chrono/src/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/filesystem/src/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/serialization/src/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/system/src/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/thread/src/*.cpp)
-FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/thread/src/pthread/once.cpp)
-FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/thread/src/pthread/thread.cpp)
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../liblsl/external/src/thread/src/pthread/*.cpp)
 
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
 LOCAL_LDLIBS := -llog
 LOCAL_CPP_FEATURES := rtti exceptions 
 LOCAL_CPP_EXTENSION := .cxx .cpp
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../liblsl/include $(LOCAL_PATH)/../../liblsl/external
+LOCAL_LDFLAGS += -z muldefs
 
 include $(BUILD_SHARED_LIBRARY)
 
