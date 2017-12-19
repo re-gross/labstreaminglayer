@@ -62,7 +62,6 @@ public class ReceiveData extends Activity {
 						}
 					});
 				}
-
 			}
 		}).start();
 	}
